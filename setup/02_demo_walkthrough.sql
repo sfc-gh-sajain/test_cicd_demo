@@ -9,7 +9,7 @@
 -- ============================================================
 -- 1. FETCH — Pull latest code from GitHub into Snowflake
 -- ============================================================
-ALTER GIT REPOSITORY HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO FETCH;
+ALTER GIT REPOSITORY CICD_METADATA.PUBLIC.CICD_REPO FETCH;
 
 -- Say: "This is Snowflake calling the GitHub API. No runner. No Actions.
 --       Snowflake pulls the code to itself."
@@ -17,8 +17,8 @@ ALTER GIT REPOSITORY HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO FETCH;
 -- ============================================================
 -- 2. BROWSE — The repo looks like a Snowflake stage
 -- ============================================================
-LS @HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO/branches/main/;
-LS @HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO/branches/main/jobs/;
+LS @CICD_METADATA.PUBLIC.CICD_REPO/branches/main/;
+LS @CICD_METADATA.PUBLIC.CICD_REPO/branches/main/jobs/;
 
 -- Say: "Every file in the GitHub repo is visible as a stage path.
 --       Navigate the folder structure as if it were a Snowflake internal stage."
@@ -27,7 +27,7 @@ LS @HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO/branches/main/jobs/;
 -- 3. EXECUTE — Run a file directly from GitHub
 -- ============================================================
 EXECUTE IMMEDIATE FROM
-  @HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO/branches/main/jobs/add_sample_data.sql;
+  @CICD_METADATA.PUBLIC.CICD_REPO/branches/main/jobs/add_sample_data.sql;
 
 -- Say: "One command — Snowflake fetched that file and ran it.
 --       No copy-paste. No local file. The code came from GitHub."
@@ -43,7 +43,7 @@ CREATE OR REPLACE TASK HELLO_WORLD_DB.DEMO_SCHEMA.REFRESH_DATA_TASK
   SCHEDULE = '60 MINUTE'
 AS
   EXECUTE IMMEDIATE FROM
-    @HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO/branches/main/jobs/add_sample_data.sql;
+    @CICD_METADATA.PUBLIC.CICD_REPO/branches/main/jobs/add_sample_data.sql;
 
 ALTER TASK HELLO_WORLD_DB.DEMO_SCHEMA.REFRESH_DATA_TASK RESUME;
 
@@ -59,10 +59,10 @@ ALTER TASK HELLO_WORLD_DB.DEMO_SCHEMA.REFRESH_DATA_TASK RESUME;
 --   ('Charlie', 'Brown', 'charlie@example.com', '555-0303')
 -- Then come back here and run:)
 
-ALTER GIT REPOSITORY HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO FETCH;
+ALTER GIT REPOSITORY CICD_METADATA.PUBLIC.CICD_REPO FETCH;
 
 EXECUTE IMMEDIATE FROM
-  @HELLO_WORLD_DB.DEMO_SCHEMA.CICD_REPO/branches/main/jobs/add_sample_data.sql;
+  @CICD_METADATA.PUBLIC.CICD_REPO/branches/main/jobs/add_sample_data.sql;
 
 -- Verify new data:
 SELECT * FROM HELLO_WORLD_DB.DEMO_SCHEMA.HELLO_WORLD;
