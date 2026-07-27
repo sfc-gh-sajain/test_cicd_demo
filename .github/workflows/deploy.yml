@@ -31,6 +31,5 @@ jobs:
         run: |
           echo "$SNOWFLAKE_PRIVATE_KEY" > /tmp/rsa_key.p8
           schemachange deploy \
-            --config-file-path schemachange-config.yml \
             --snowflake-private-key-path /tmp/rsa_key.p8
           rm -f /tmp/rsa_key.p8
