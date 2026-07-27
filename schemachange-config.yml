@@ -1,0 +1,7 @@
+config-version: 1
+root-folder: migrations
+snowflake-account: SFPSCOGS-SJ_DEMO_AWSWEST2
+snowflake-user: SCHEMACHANGE_SVC
+snowflake-role: SCHEMACHANGE_DEPLOY_ROLE
+snowflake-warehouse: DEMO_WH
+change-history-table: CICD_METADATA.PUBLIC.CHANGE_HISTORY
