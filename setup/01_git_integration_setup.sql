@@ -15,8 +15,9 @@ USE SCHEMA PUBLIC;
 
 -- Step 1: Store GitHub PAT as a secret
 CREATE OR REPLACE SECRET CICD_METADATA.PUBLIC.GITHUB_PAT
-  TYPE = GENERIC_STRING
-  SECRET_STRING = '<your-github-pat>';   -- Replace with your actual PAT
+  TYPE = PASSWORD
+  USERNAME = 'sfc-gh-sajain'
+  PASSWORD = '<your-github-pat>';   -- Replace with your actual PAT
 
 -- Step 2: API Integration (allows Snowflake to call GitHub API)
 CREATE OR REPLACE API INTEGRATION GITHUB_API_INTEGRATION
