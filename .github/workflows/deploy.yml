@@ -27,9 +27,19 @@ jobs:
 
       - name: Deploy migrations
         env:
-          SNOWFLAKE_PRIVATE_KEY: ${{ secrets.SNOWFLAKE_PRIVATE_KEY }}
+          SNOWFLAKE_PRIVATE_KEY_B64: ${{ secrets.SNOWFLAKE_PRIVATE_KEY }}
         run: |
-          echo "$SNOWFLAKE_PRIVATE_KEY" > /tmp/rsa_key.p8
+          printf '%s' "$SNOWFLAKE_PRIVATE_KEY_B64" | base64 -d > /tmp/rsa_key.p8
           schemachange deploy \
             --snowflake-private-key-path /tmp/rsa_key.p8
+          rm -f /tmp/rsa_key.p8
+
+      - name: Verify deployment
+        env:
+          SNOWFLAKE_PRIVATE_KEY_B64: ${{ secrets.SNOWFLAKE_PRIVATE_KEY }}
+        run: |
+          printf '%s' "$SNOWFLAKE_PRIVATE_KEY_B64" | base64 -d > /tmp/rsa_key.p8
+          schemachange deploy \
+            --snowflake-private-key-path /tmp/rsa_key.p8 \
+            --dry-run
           rm -f /tmp/rsa_key.p8
