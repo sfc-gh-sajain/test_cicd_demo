@@ -5,6 +5,7 @@
 --
 -- Run setup/01_git_integration_setup.sql first.
 -- ============================================================================
+USE ROLE SCHEMACHANGE_DEPLOY_ROLE;
 
 -- ============================================================
 -- 1. FETCH — Pull latest code from GitHub into Snowflake

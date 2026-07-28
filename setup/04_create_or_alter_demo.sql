@@ -11,6 +11,7 @@
 -- Reuses: CICD_METADATA.PUBLIC.CICD_REPO (created in Approach 2 setup)
 -- NO NEW SETUP REQUIRED.
 -- ============================================================================
+USE ROLE SCHEMACHANGE_DEPLOY_ROLE;
 
 -- ============================================================
 -- DEMO STEP 1: Show the desired-state file in GitHub
